@@ -33,11 +33,11 @@ header{
     min-height:100vh;
 
     background:
-    linear-gradient(rgba(0,0,0,0.40), rgba(0,0,0,0.40)),
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
     url('ChatGPT Image 8 Mei 2026, 02.31.53.png');
 
     background-size:cover;
-    background-position:center center;
+    background-position:center;
     background-repeat:no-repeat;
 
     display:flex;
@@ -46,7 +46,6 @@ header{
 
     padding:40px 20px;
 }
-
 .hero{
     width:100%;
     text-align:center;
@@ -394,6 +393,32 @@ footer h3{
         height:300px;
     }
 
+}
+
+@media(max-width:768px){
+
+    header{
+
+        background:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url('bg-hp.jpg');
+
+        background-size:cover;
+        background-position:center top;
+        background-repeat:no-repeat;
+
+    }
+
+}
+input[type="date"]::before{
+    content:"Tempat / Tanggal Lahir";
+    color:#777;
+    margin-right:10px;
+}
+
+input[type="date"]:focus::before,
+input[type="date"]:valid::before{
+    content:"";
 }
 
 </style>
@@ -824,7 +849,12 @@ placeholder="Nama Lengkap"
 required>
 
 <input type="text"
-placeholder="Tempat, Tanggal Lahir"
+id="tempatLahir"
+placeholder="Tempat Lahir"
+required>
+
+<input type="date"
+id="tanggalLahir"
 required>
 
 <input type="number"
@@ -848,6 +878,7 @@ required>
 </select>
 
 <textarea class="full"
+id="alamat"
 placeholder="Alamat Lengkap"></textarea>
 
 <div class="full"
@@ -980,6 +1011,15 @@ document.getElementById('nama').value;
 const wa =
 form.querySelector('input[placeholder="Nomor WhatsApp"]').value;
 
+const tempatLahir =
+document.getElementById('tempatLahir').value;
+
+const tanggalLahir =
+document.getElementById('tanggalLahir').value;
+
+const alamat =
+document.getElementById('alamat').value;
+
 const jenjang =
 document.getElementById('jenjang').value;
 
@@ -996,8 +1036,19 @@ push(ref(db, 'pendaftaran'), {
 
 nama:nama,
 wa:wa,
+tempatLahir:tempatLahir,
+tanggalLahir:tanggalLahir,
+alamat:alamat,
 jenjang:jenjang,
+
+email:
+form.querySelector('input[type="email"]').value,
+
+jenisKelamin:
+form.querySelectorAll('select')[1].value,
+
 tanggal:tanggal,
+
 status:'Baru Daftar'
 
 });
