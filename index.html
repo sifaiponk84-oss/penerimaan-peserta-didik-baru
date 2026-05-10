@@ -1034,22 +1034,27 @@ year:'numeric'
 
 push(ref(db, 'pendaftaran'), {
 
-nama:nama,
-wa:wa,
-tempatLahir:tempatLahir,
-tanggalLahir:tanggalLahir,
-alamat:alamat,
-jenjang:jenjang,
+nama: nama,
+
+tempatLahir: tempatLahir,
+
+tanggalLahir: tanggalLahir,
+
+wa: wa,
 
 email:
 form.querySelector('input[type="email"]').value,
 
+jenjang: jenjang,
+
 jenisKelamin:
 form.querySelectorAll('select')[1].value,
 
-tanggal:tanggal,
+alamat: alamat,
 
-status:'Baru Daftar'
+tanggal: tanggal,
+
+status: 'Baru Daftar'
 
 });
 
