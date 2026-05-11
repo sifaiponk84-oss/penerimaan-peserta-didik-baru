@@ -1111,109 +1111,23 @@ loading="lazy">
 
 <!-- ================= FORM ================= -->
 
-<section id="daftar">
+<div class="btn-group">
 
-<div class="form-section">
+<a href="yatim.html"
+class="btn btn-primary">
 
-<div class="section-title">
-<h2>Formulir Pendaftaran</h2>
-<p>Isi data berikut untuk mendaftar.</p>
-</div>
+Pendaftaran Yatim
 
-<form id="registrationForm">
+</a>
 
-<input type="text"
-id="nama"
-placeholder="Nama Lengkap"
-required>
+<a href="nonyatim.html"
+class="btn btn-secondary">
 
-<input type="text"
-id="tempatLahir"
-placeholder="Tempat Lahir"
-required>
+Pendaftaran Non Yatim
 
-<input type="date"
-id="tanggalLahir"
-required>
-
-<input type="number"
-placeholder="Nomor WhatsApp"
-required>
-
-<input type="email"
-placeholder="Email Aktif"
-required>
-
-<select id="jenjang" required>
-<option value="">Pilih Jenjang</option>
-<option>SMPIT</option>
-<option>SMAIT</option>
-</select>
-
-<select required>
-<option value="">Jenis Kelamin</option>
-<option>Laki-laki</option>
-<option>Perempuan</option>
-</select>
-
-<textarea class="full"
-id="alamat"
-placeholder="Alamat Lengkap"></textarea>
-
-<div class="full"
-style="text-align:center;">
-
-<button type="submit"
-class="submit-btn">
-
-Kirim Pendaftaran
-
-</button>
+</a>
 
 </div>
-
-</form>
-
-</div>
-
-</section>
-
-<!-- ================= HISTORY ================= -->
-
-<section>
-
-<div class="section-title">
-<h2>History Pendaftaran</h2>
-<p>Data santri yang telah melakukan pendaftaran.</p>
-</div>
-
-<div class="table-box">
-
-<table>
-
-<thead>
-
-<tr>
-<th>No</th>
-<th>Nama</th>
-<th>Jenjang</th>
-<th>Tanggal</th>
-<th>Status</th>
-<th>Aksi</th>
-</tr>
-
-</thead>
-
-<tbody id="historyTable">
-
-</tbody>
-
-</table>
-
-</div>
-
-</section>
-
 <!-- ================= FOOTER ================= -->
 
 <footer>
@@ -1275,147 +1189,6 @@ const db = getDatabase(app);
 const form =
 document.getElementById('registrationForm');
 
-const historyTable =
-document.getElementById('historyTable');
-
-const ADMIN_PASSWORD = "seribubulan";
-
-form.addEventListener('submit', function(e){
-
-e.preventDefault();
-
-const nama =
-document.getElementById('nama').value;
-
-const wa =
-form.querySelector('input[placeholder="Nomor WhatsApp"]').value;
-
-const tempatLahir =
-document.getElementById('tempatLahir').value;
-
-const tanggalLahir =
-document.getElementById('tanggalLahir').value;
-
-const alamat =
-document.getElementById('alamat').value;
-
-const jenjang =
-document.getElementById('jenjang').value;
-
-const tanggal =
-new Date().toLocaleDateString('id-ID', {
-
-day:'2-digit',
-month:'long',
-year:'numeric'
-
-});
-
-push(ref(db, 'pendaftaran'), {
-
-nama: nama,
-
-tempatLahir: tempatLahir,
-
-tanggalLahir: tanggalLahir,
-
-wa: wa,
-
-email:
-form.querySelector('input[type="email"]').value,
-
-jenjang: jenjang,
-
-jenisKelamin:
-form.querySelectorAll('select')[1].value,
-
-alamat: alamat,
-
-tanggal: tanggal,
-
-status: 'Baru Daftar'
-
-});
-
-alert('Pendaftaran berhasil dikirim!');
-
-form.reset();
-
-});
-
-onValue(ref(db, 'pendaftaran'), (snapshot)=>{
-
-historyTable.innerHTML = '';
-
-let no = 1;
-
-snapshot.forEach((childSnapshot)=>{
-
-const data = childSnapshot.val();
-
-const key = childSnapshot.key;
-
-historyTable.innerHTML += `
-
-<tr>
-
-<td>${no++}</td>
-
-<td>${data.nama}</td>
-
-<td>${data.jenjang}</td>
-
-<td>${data.tanggal}</td>
-
-<td style="
-color:green;
-font-weight:600;">
-${data.status}
-</td>
-
-<td>
-
-<button onclick="hapusData('${key}')"
-style="
-background:red;
-color:white;
-border:none;
-padding:5px 8px;
-border-radius:6px;
-cursor:pointer;">
-
-Hapus
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-});
-
-window.hapusData = function(key){
-
-const password =
-prompt("Masukkan Password Admin");
-
-if(password === ADMIN_PASSWORD){
-
-remove(ref(db, 'pendaftaran/' + key));
-
-alert("Data berhasil dihapus");
-
-}else{
-
-alert("Password salah!");
-
-}
-
-}
 
 window.toggleEskul = function(){
 
